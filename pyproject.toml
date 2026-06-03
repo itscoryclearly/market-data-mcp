@@ -1,0 +1,37 @@
+[project]
+name = "market-data-mcp"
+version = "0.1.0"
+description = "MCP server exposing live multi-exchange crypto market data (Coinbase + Kraken) over public, key-free endpoints."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Cory Perrin" }]
+keywords = ["mcp", "model-context-protocol", "llm", "agents", "crypto", "market-data"]
+dependencies = [
+    "mcp[cli]>=1.2.0",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "ruff>=0.6"]
+
+[project.scripts]
+market-data-mcp = "market_data_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/market_data_mcp"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
